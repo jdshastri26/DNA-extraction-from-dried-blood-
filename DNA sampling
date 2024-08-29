@@ -1,0 +1,57 @@
+
+
+from Bio import SeqIO
+from Bio.SeqUtils import GC
+from Bio.Seq import Seq
+
+def read_fasta(file_path):
+    """
+    Reads a FASTA file and returns a list of sequences.
+    """
+    sequences = []
+    for record in SeqIO.parse(file_path, "fasta"):
+        sequences.append(record)
+    return sequences
+
+def compute_gc_content(dna_seq):
+    """
+    Computes the GC content of a DNA sequence.
+    """
+    return GC(dna_seq)
+
+def translate_dna_to_protein(dna_seq):
+    """
+    Translates a DNA sequence to a protein sequence.
+    """
+    seq = Seq(dna_seq)
+    return seq.translate()
+
+def main(file_path):
+    sequences = read_fasta(file_path)
+    
+    for record in sequences:
+        print(f"Processing Sequence ID: {record.id}")
+        dna_seq = str(record.seq)
+        
+        # Compute GC Content
+        gc_content = compute_gc_content(dna_seq)
+        print(f"GC Content: {gc_content:.2f}%")
+        
+        # Translate DNA to Protein
+        protein_seq = translate_dna_to_protein(dna_seq)
+        print(f"Translated Protein Sequence: {protein_seq}\n")
+
+if __name__ == "__main__":
+    fasta_file_path = "path/to/your/dna_sequences.fasta"  # Replace with your file path
+    main(fasta_file_path)
+
+
+
+
+pip install biopython
+
+
+Explanation:
+Reading FASTA Files: The read_fasta function reads DNA sequences from a FASTA file.
+Computing GC Content: The compute_gc_content function calculates the GC content percentage.
+Translating DNA to Protein: The translate_dna_to_protein function converts a DNA sequence into its corresponding protein sequence.
